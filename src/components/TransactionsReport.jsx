@@ -38,28 +38,28 @@ const RenderReport = ({ totalTrans, allTrans }) => {
   }, [motorCount, carCount]);
 
   return (
-    <div className="w-25 h-44 shadow-md bg-white grid grid-cols-2 gap-10 rounded-lg mb-4 place-content-evenly border border-stone-500">
+    <div className="w-25 h-44 shadow-lg bg-white grid grid-cols-2 gap-10 rounded-lg mb-4 place-content-evenly">
       <div className="text-center pr-3">
-        <p className="text-2xl font-bold">Total Transaksi</p>
-        <p className="text-xl mt-2">{totalTrans}</p>
+        <p className="text-4xl font-bold">Total Transaksi</p>
+        <p className="text-2xl mt-2">{totalTrans}</p>
       </div>
       <div className="grid grid-cols-2 w-11/12 h-full">
         <div>
           <p className="text-center text-2xl text-green-400">Masuk</p>
           <div className="flex items-center justify-center mt-2">
             <FaCar className="text-green-400 text-2xl mr-1" />
-            <p className="mr-3 ">{carCount.masuk}</p>
+            <p className="mr-3 text-xl">{carCount.masuk}</p>
             <FaMotorcycle className="text-green-400 text-2xl mr-1" />
-            <p>{motorCount.masuk}</p>
+            <p className="text-xl">{motorCount.masuk}</p>
           </div>
         </div>
         <div>
           <p className="text-center text-2xl text-red-600">Keluar</p>
           <div className="flex items-center justify-center mt-2">
             <FaCar className="text-red-600 text-2xl mr-1" />
-            <p className="mr-3">{carCount.keluar}</p>
+            <p className="mr-3 text-xl">{carCount.keluar}</p>
             <FaMotorcycle className="text-red-600 text-2xl mr-1" />
-            <p>{motorCount.keluar}</p>
+            <p className="text-xl">{motorCount.keluar}</p>
           </div>
         </div>
       </div>
