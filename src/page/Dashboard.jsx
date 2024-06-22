@@ -258,42 +258,29 @@ function Dashboard() {
                     </button>
                 </div>
                 {Object.keys(groupedData).map((lantai) => (
-                    <div key={lantai}>
-                        <h1 className="text-2xl font-bold mb-4">Lantai {lantai}</h1>
-                        {groupedData[lantai].length > 0 && (
-                            <>
-                                {lantai === '1' && (
-                                    <ParkingLotMotor
-                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '')}
-                                        onEditClick={handleEditClick}
-                                        onDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                                {lantai === '2' && (
-                                    <ParkingLot
-                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '')}
-                                        onEditClick={handleEditClick}
-                                        onDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                                {lantai === '3' && (
-                                    <ParkingLotMotor
-                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '')}
-                                        onEditClick={handleEditClick}
-                                        onDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                                {lantai === '4' && (
-                                    <ParkingLot
-                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '')}
-                                        onEditClick={handleEditClick}
-                                        onDeleteClick={handleDeleteClick}
-                                    />
-                                )}
-                            </>
-                        )}
-                    </div>
-                ))}
+    <div key={lantai}>
+        <h1 className="text-2xl font-bold mb-4">Lantai {lantai}</h1>
+        {groupedData[lantai].length > 0 && (
+            <>
+                {groupedData[lantai].some(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '') && (
+                    <ParkingLotMotor
+                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '')}
+                        onEditClick={handleEditClick}
+                        onDeleteClick={handleDeleteClick}
+                    />
+                )}
+                {groupedData[lantai].some(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '') && (
+                    <ParkingLot
+                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '')}
+                        onEditClick={handleEditClick}
+                        onDeleteClick={handleDeleteClick}
+                    />
+                )}
+            </>
+        )}
+    </div>
+))}
+
 
                 {isPopupOpen && (
                     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
