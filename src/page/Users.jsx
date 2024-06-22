@@ -10,91 +10,6 @@ const HOST_DEV = "http://localhost:3000";
 const HOST_PROD = "https://dioparkapp-production.up.railway.app";
 const HOST = process.env.NODE_ENV === "production" ? HOST_PROD : HOST_DEV;
 
-const dummyData = {
-  "totalTransaksi": 5,
-  "transaksi": [
-    {
-      "blok_parkir": "A1",
-      "email": "user1@example.com",
-      "id_transaksi": 1,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "masuk",
-      "waktu_parkir": "2024-06-14T10:15:00.000Z"
-    },
-    {
-      "blok_parkir": "A1",
-      "email": "user1@example.com",
-      "id_transaksi": 2,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "keluar",
-      "waktu_parkir": "2024-06-14T12:30:00.000Z"
-    },
-    {
-      "blok_parkir": "A2",
-      "email": "user2@example.com",
-      "id_transaksi": 3,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "masuk",
-      "waktu_parkir": "2024-06-14T08:20:00.000Z"
-    },
-    {
-      "blok_parkir": "A2",
-      "email": "user2@example.com",
-      "id_transaksi": 4,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "keluar",
-      "waktu_parkir": "2024-06-14T10:45:00.000Z"
-    },
-    {
-      "blok_parkir": "A3",
-      "email": "user3@example.com",
-      "id_transaksi": 5,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "masuk",
-      "waktu_parkir": "2024-06-14T11:00:00.000Z"
-    },
-    {
-      "blok_parkir": "A3",
-      "email": "user3@example.com",
-      "id_transaksi": 6,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "keluar",
-      "waktu_parkir": "2024-06-14T13:30:00.000Z"
-    },
-    {
-      "blok_parkir": "A4",
-      "email": "user4@example.com",
-      "id_transaksi": 7,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "masuk",
-      "waktu_parkir": "2024-06-14T09:15:00.000Z"
-    },
-    {
-      "blok_parkir": "A4",
-      "email": "user4@example.com",
-      "id_transaksi": 8,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "keluar",
-      "waktu_parkir": "2024-06-14T11:45:00.000Z"
-    },
-    {
-      "blok_parkir": "A5",
-      "email": "user5@example.com",
-      "id_transaksi": 9,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "masuk",
-      "waktu_parkir": "2024-06-14T14:00:00.000Z"
-    },
-    {
-      "blok_parkir": "A5",
-      "email": "user5@example.com",
-      "id_transaksi": 10,
-      "parkiran": {"kendaraan": "Motor"},
-      "status": "keluar",
-      "waktu_parkir": "2024-06-14T16:30:00.000Z"
-    }
-  ]
-}
 
 const processData = (dataStream, timeRange, startTime = null, endTime = null) => {
   const currentDate = new Date();
@@ -122,8 +37,8 @@ const processData = (dataStream, timeRange, startTime = null, endTime = null) =>
 
 
 function Users() {
-  const [statsData, setStatsData] = useState(dummyData.transaksi);
-  const [totalTransaksi, setTotalTransaksi] = useState(dummyData.totalTransaksi);
+  const [statsData, setStatsData] = useState([]);
+  const [totalTransaksi, setTotalTransaksi] = useState([]);
   const [timeRange, setTimeRange] = useState("today");
   const [startTime, setStartTime] = useState("08:00");
   const [endTime, setEndTime] = useState("11:59");
@@ -150,11 +65,7 @@ function Users() {
         console.log(newStatsData);
         setStatsData(newStatsData.transaksi);
         setTotalTransaksi(newStatsData.totalTransaksi);
-      } else {
-        setStatsData(dummyData.transaksi);
-        setTotalTransaksi(dummyData.totalTransaksi);
-        throw new Error(`HTTP error! status: ${statsResponse.status}`);
-      }
+      } 
 
     } catch (error) {
       console.error("Error fetching stats data:", error);
