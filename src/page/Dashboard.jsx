@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Sidebar from "../components/Sidebar";
 import ParkingLot from "../components/ParkingLot";
 import ParkingLotMotor from "../components/ParkingLotMotor";
@@ -240,6 +240,24 @@ function Dashboard() {
         return acc;
     }, {});
 
+    // Sorting function
+    const sortParkingSlots = (data) => {
+        return data.sort((a, b) => {
+            const blokA = a.blok_parkir.match(/[A-Z]+/i)[0];
+            const blokB = b.blok_parkir.match(/[A-Z]+/i)[0];
+            const numA = parseInt(a.blok_parkir.match(/\d+/)[0], 10);
+            const numB = parseInt(b.blok_parkir.match(/\d+/)[0], 10);
+
+            if (blokA < blokB) return -1;
+            if (blokA > blokB) return 1;
+            return numA - numB;
+        });
+    };
+
+    Object.keys(groupedData).forEach((lantai) => {
+        groupedData[lantai] = sortParkingSlots(groupedData[lantai]);
+    });
+
     return (
         <div className="flex min-h-screen bg-gray-100">
             <Sidebar />
@@ -258,28 +276,28 @@ function Dashboard() {
                     </button>
                 </div>
                 {Object.keys(groupedData).map((lantai) => (
-    <div key={lantai}>
-        <h1 className="text-2xl font-bold mb-4">Lantai {lantai}</h1>
-        {groupedData[lantai].length > 0 && (
-            <>
-                {groupedData[lantai].some(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '') && (
-                    <ParkingLotMotor
-                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '')}
-                        onEditClick={handleEditClick}
-                        onDeleteClick={handleDeleteClick}
-                    />
-                )}
-                {groupedData[lantai].some(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '') && (
-                    <ParkingLot
-                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '')}
-                        onEditClick={handleEditClick}
-                        onDeleteClick={handleDeleteClick}
-                    />
-                )}
-            </>
-        )}
-    </div>
-))}
+                    <div key={lantai}>
+                        <h1 className="text-2xl font-bold mb-4">Lantai {lantai}</h1>
+                        {groupedData[lantai].length > 0 && (
+                            <>
+                                {groupedData[lantai].some(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '') && (
+                                    <ParkingLotMotor
+                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Motor' || slot.kendaraan === '')}
+                                        onEditClick={handleEditClick}
+                                        onDeleteClick={handleDeleteClick}
+                                    />
+                                )}
+                                {groupedData[lantai].some(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '') && (
+                                    <ParkingLot
+                                        parkingData={groupedData[lantai].filter(slot => slot.kendaraan === 'Mobil' || slot.kendaraan === '')}
+                                        onEditClick={handleEditClick}
+                                        onDeleteClick={handleDeleteClick}
+                                    />
+                                )}
+                            </>
+                        )}
+                    </div>
+                ))}
 
 
                 {isPopupOpen && (
