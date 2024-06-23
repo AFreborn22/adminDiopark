@@ -16,7 +16,7 @@ function ParkingLot({ parkingData, onEditClick, onDeleteClick }) {
 
     return (
         <div>
-            <div className="grid grid-cols-5 gap-4">
+            <div className="grid grid-cols-5 gap-4 mt-4">
                 {secondFloor.map((slot, index) => (
                     <div
                         key={index}
